@@ -21,10 +21,10 @@
  */
 -->
 <configuration>
-	<property>     
-		<name>hbase.rootdir</name>     
-		<value>hdfs://hadoop144:9000/hbase</value>
-	</property>
+	<!--<property>     -->
+	<!--	<name>hbase.rootdir</name>     -->
+	<!--	<value>hdfs://mycluster/hbase</value>-->
+	<!--</property>-->
 
 	<property>   
 		<name>hbase.cluster.distributed</name>

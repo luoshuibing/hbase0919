@@ -6,7 +6,12 @@
 
     <groupId>com.jd</groupId>
     <artifactId>hbase0919</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>hbase-mr</module>
+        <module>hbase-debug</module>
+    </modules>
 
     <dependencies>
 
@@ -22,7 +27,6 @@
             <artifactId>hbase-client</artifactId>
             <version>1.3.1</version>
         </dependency>
-
 
     </dependencies>
 
