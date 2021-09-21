@@ -32,7 +32,7 @@ public class TestHbaseApi5 {
         // bs[0]= Bytes.toBytes("0|");
         // bs[1]= Bytes.toBytes("1|");
         // admin.createTable(td,bs);
-        // System.out.println("表格创建成功");
+        // System.out.println("表格创建成功"
         Table empTable = connection.getTable(TableName.valueOf("emp1"));
         String rowkey="zhangsan";
         rowkey = HBaseUtil.genRegionNum(rowkey, 3);
