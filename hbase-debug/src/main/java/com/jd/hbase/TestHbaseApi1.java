@@ -50,7 +50,9 @@ public class TestHbaseApi1 {
                 }
             }
         }else{
+
             HTableDescriptor td=new HTableDescriptor(tn);
+            td.addCoprocessor("com.jd.hbase.coprocesser.SaveCoprocesser");
             HColumnDescriptor hColumnDescriptor = new HColumnDescriptor("info");
             td.addFamily(hColumnDescriptor);
             admin.createTable(td);

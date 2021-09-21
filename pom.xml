@@ -11,6 +11,7 @@
     <modules>
         <module>hbase-mr</module>
         <module>hbase-debug</module>
+        <module>hbase-coprocesser</module>
     </modules>
 
     <dependencies>
