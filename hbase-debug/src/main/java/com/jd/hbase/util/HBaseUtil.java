@@ -16,23 +16,23 @@ import org.apache.hadoop.hbase.util.Bytes;
  */
 public class HBaseUtil {
 
-    private static final ThreadLocal<Connection> TL=new ThreadLocal<>();
+    private static final ThreadLocal<Connection> TL = new ThreadLocal<>();
 
-    private HBaseUtil(){
+    private HBaseUtil() {
 
     }
 
-    public static void makeHBaseConnection()throws Exception{
-        Connection conn=TL.get();
-        if(conn==null){
-            Configuration conf=HBaseConfiguration.create();
+    public static void makeHBaseConnection() throws Exception {
+        Connection conn = TL.get();
+        if (conn == null) {
+            Configuration conf = HBaseConfiguration.create();
             conn = ConnectionFactory.createConnection(conf);
             TL.set(conn);
         }
     }
 
-    public static void saveData(String tableName,String rowkey,String family,String column,String value) throws Exception{
-        Connection conn= TL.get();
+    public static void saveData(String tableName, String rowkey, String family, String column, String value) throws Exception {
+        Connection conn = TL.get();
         Table table = conn.getTable(TableName.valueOf(tableName));
         Put put = new Put(Bytes.toBytes(rowkey));
         put.addColumn(Bytes.toBytes(family), Bytes.toBytes(column), Bytes.toBytes(value));
@@ -40,23 +40,31 @@ public class HBaseUtil {
         table.close();
     }
 
-    public static void close() throws Exception{
-        Connection conn=TL.get();
-        if(conn!=null){
+    public static void close() throws Exception {
+        Connection conn = TL.get();
+        if (conn != null) {
             conn.close();
             TL.remove();
         }
     }
 
-    public static String genRegionNum(String rowkey,int regionCount){
+    public static String genRegionNum(String rowkey, int regionCount) {
         int regionNum;
-        int hash=rowkey.hashCode();
-        if(regionCount>0&&(regionCount&(regionCount-1))==0){
-            regionNum=hash&(regionCount-1);
-        }else{
-            regionNum=hash%regionCount;
+        int hash = rowkey.hashCode();
+        if (regionCount > 0 && (regionCount & (regionCount - 1)) == 0) {
+            regionNum = hash & (regionCount - 1);
+        } else {
+            regionNum = hash % regionCount;
         }
-        return regionNum+"_"+rowkey;
+        return regionNum + "_" + rowkey;
+    }
+
+    public static byte[][] genRegionKeys(int regionCount) {
+        byte[][] bs = new byte[regionCount - 1][];
+        for (int i = 0; i < regionCount - 1; i++) {
+            bs[i] = Bytes.toBytes(i + "|");
+        }
+        return bs;
     }
 
 }
