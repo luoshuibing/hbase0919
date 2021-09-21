@@ -44,7 +44,19 @@ public class HBaseUtil {
         Connection conn=TL.get();
         if(conn!=null){
             conn.close();
+            TL.remove();
         }
+    }
+
+    public static String genRegionNum(String rowkey,int regionCount){
+        int regionNum;
+        int hash=rowkey.hashCode();
+        if(regionCount>0&&(regionCount&(regionCount-1))==0){
+            regionNum=hash&(regionCount-1);
+        }else{
+            regionNum=hash%regionCount;
+        }
+        return regionNum+"_"+rowkey;
     }
 
 }

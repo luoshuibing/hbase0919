@@ -4,6 +4,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.log4j.BasicConfigurator;
 
 /**
  * @author FM
@@ -13,6 +14,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 public class TestHbaseApi1 {
 
     public static void main(String[] args) throws Exception{
+        BasicConfigurator.configure();
         Configuration configuration = HBaseConfiguration.create();
         Connection connection = ConnectionFactory.createConnection(configuration);
         Admin admin = connection.getAdmin();
